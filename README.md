@@ -37,7 +37,7 @@ Note: Do not hardcode your token in the code in production. Use .env or secret m
 
 4. Run the server
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 3000
+uvicorn api:app --host 0.0.0.0 --port 3000
 ```
 📡 API Usage
 Endpoint
