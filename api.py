@@ -20,7 +20,6 @@ tokenizer = AutoTokenizer.from_pretrained("unitary/toxic-bert")
 class TextInput(BaseModel):
     text: str
 
-
 @app.post("/filtercomment")
 async def filter_comment(data: TextInput):
     inputs = tokenizer(data.text, return_tensors="pt", padding=True, truncation=True)
@@ -33,10 +32,14 @@ async def filter_comment(data: TextInput):
 
     labels = model.config.id2label
     results = {labels.get(i, f"Label {i}"): float(prob) for i, prob in enumerate(probs[0])}
-
+    if results['toxic']<0.5 and results['severe_toxic']<0.5 and results['obscene']<0.5 and results['insult']<0.5 and results['identity_hate']<0.5:
+        results['safe'] = True
+    else:
+        results['safe'] = False
     return results
 
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=3000)
+
