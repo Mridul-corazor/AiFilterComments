@@ -1,0 +1,5 @@
+flask
+fastapi
+uvicorn
+transformers==4.26.1
+torch
