@@ -9,7 +9,7 @@ app = FastAPI()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Login once on startup (consider environment variable for token in prod)
-login("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", add_to_git_credential=True)
+login("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", add_to_git_credential=False)
 
 model = AutoModelForSequenceClassification.from_pretrained("unitary/toxic-bert").to(device)
 tokenizer = AutoTokenizer.from_pretrained("unitary/toxic-bert")
