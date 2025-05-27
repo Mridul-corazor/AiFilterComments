@@ -3,15 +3,13 @@ from pydantic import BaseModel
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 from huggingface_hub import login
-from dotenv import load_dotenv
-import os
+
 app = FastAPI()
-load_dotenv()
-HUGGINGFACE_TOKEN = "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"
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Login once on startup (consider environment variable for token in prod)
-login(HUGGINGFACE_TOKEN, add_to_git_credential=False)
+login("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", add_to_git_credential=True)
 
 model = AutoModelForSequenceClassification.from_pretrained("unitary/toxic-bert").to(device)
 tokenizer = AutoTokenizer.from_pretrained("unitary/toxic-bert")
@@ -19,6 +17,7 @@ tokenizer = AutoTokenizer.from_pretrained("unitary/toxic-bert")
 
 class TextInput(BaseModel):
     text: str
+
 
 @app.post("/filtercomment")
 async def filter_comment(data: TextInput):
@@ -39,3 +38,6 @@ async def filter_comment(data: TextInput):
     return results
 
 
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=3000)
