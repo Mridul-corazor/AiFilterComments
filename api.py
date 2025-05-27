@@ -11,7 +11,7 @@ HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Login once on startup (consider environment variable for token in prod)
-login(HUGGINGFACE_TOKEN, add_to_git_credential=True)
+login(HUGGINGFACE_TOKEN, add_to_git_credential=False)
 
 model = AutoModelForSequenceClassification.from_pretrained("unitary/toxic-bert").to(device)
 tokenizer = AutoTokenizer.from_pretrained("unitary/toxic-bert")
