@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import os
 app = FastAPI()
 load_dotenv()
-HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
+HUGGINGFACE_TOKEN = "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"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Login once on startup (consider environment variable for token in prod)
